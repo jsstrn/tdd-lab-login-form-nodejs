@@ -24,6 +24,11 @@ router.post('/', function (req, res, next) {
     return res.render('signup', { errorMsg: errorMessage, username: req.body.username, email: req.body.email })
   }
 
+  if (req.body.password.length < 12) {
+    isValid = false
+    errorMessage += 'Password must be at least 12 characters. '
+  }
+
   const existingUsername = users.findOne({ username: req.body.username })
   if (existingUsername) {
     isValid = false
